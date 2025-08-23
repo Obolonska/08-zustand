@@ -16,8 +16,8 @@ export interface Note {
   tag: NoteTag;
 }
 
-export interface NewNote {
+export type NewNote = {
   title: string;
   content: string;
   tag: NoteTag;
-}
+};

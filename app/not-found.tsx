@@ -1,4 +1,24 @@
 import css from "./page.module.css";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Not found",
+  description: "Page not found.",
+  openGraph: {
+    title: "Not found",
+    description: "Page not found.",
+    url: `https://notehub.com/not-found`,
+    images: [
+      {
+        url: "https://webhostingmedia.net/wp-content/uploads/2018/01/http-error-404-not-found.png",
+        width: 1200,
+        height: 630,
+        alt: "Not Found",
+      },
+    ],
+    type: "website",
+  },
+};
 
 const NotFound = () => {
   return (

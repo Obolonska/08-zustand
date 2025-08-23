@@ -7,19 +7,14 @@ import { useDebouncedCallback } from "use-debounce";
 
 import { getNotes, NotesResponse } from "@/lib/api";
 import NoteList from "@/components/NoteList/NoteList";
-import NoteForm from "@/components/NoteForm/NoteForm";
-import Modal from "@/components/Modal/Modal";
+
 import EmptyState from "@/components/EmptyState/EmptyState";
 import Pagination from "@/components/Pagination/Pagination";
 import SearchBox from "@/components/SearchBox/SearchBox";
-
-const useToggle = (): [boolean, () => void, () => void] => {
-  const [isOpen, setIsOpen] = useState(false);
-  return [isOpen, () => setIsOpen(true), () => setIsOpen(false)];
-};
+import Link from "next/link";
 
 interface NotesClientProps {
-  initialData: NotesResponse; // об'єкт із notes та totalPages
+  initialData: NotesResponse;
   initialTag?: string;
 }
 
@@ -28,7 +23,6 @@ export default function NotesClient({
   initialTag,
 }: NotesClientProps) {
   const { notes, totalPages } = initialData;
-  const [isModalOpen, openModal, closeModal] = useToggle();
   const [searchQuery, setSearchQuery] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [page, setPage] = useState(1);
@@ -64,9 +58,13 @@ export default function NotesClient({
           />
         )}
 
-        <button className={css.button} onClick={openModal}>
+        <Link
+          className={css.button}
+          rel="stylesheet"
+          href="/notes/action/create"
+        >
           Create note +
-        </button>
+        </Link>
       </header>
 
       {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
@@ -75,12 +73,6 @@ export default function NotesClient({
 
       {data && !isLoading && data.notes.length === 0 && (
         <EmptyState message="No notes found." />
-      )}
-
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <NoteForm onSuccess={closeModal} onCancel={closeModal} />
-        </Modal>
       )}
     </div>
   );

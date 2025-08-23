@@ -26,8 +26,6 @@ export const getNotes = async (
       page,
     },
   });
-  console.log("getNotes response:", response.data, "tag:", tag);
-
   return response.data;
 };
 export const getSingleNote = async (id: string) => {
